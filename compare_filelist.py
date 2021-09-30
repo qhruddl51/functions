@@ -50,10 +50,10 @@ if __name__ == "__main__" :
         filelist_2 = csv_col_extract(col=1, csvfile=f"{root_dir}/{category_names[1]}.csv")
         total_filelist = csv_col_extract(col=1, csvfile=f"{root_dir}/{category_names[2]}.csv")
     elif input_mode == "folder" :
-        female_filelist = os.listdir(f"{root_dir}/{category_names[0]}.csv")
-        male_filelist = os.listdir(f"{root_dir}/{category_names[1]}.csv")
-        total_filelist = os.listdir(f"{root_dir}/{category_names[2]}.csv")
-    else : "input_mode should be 'csv' or 'folder'"
+        female_filelist = os.listdir(f"{root_dir}/{category_names[0]}")
+        male_filelist = os.listdir(f"{root_dir}/{category_names[1]}")
+        total_filelist = os.listdir(f"{root_dir}/{category_names[2]}")
+    else : print("input_mode should be 'csv' or 'folder'")
     
     
     intersaction_category = list(set(filelist_1) & set(filelist_2))
