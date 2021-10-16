@@ -54,5 +54,5 @@ def imgPath_annotPath (root_dir, img_dir, annot_dir, out_csv_path) :
 
 
 if __name__ == "__main__" : 
-    # imgPath_class("C:/Users/qhrud/data/face_gender_img/Validation", "C:/Users/qhrud/data/face_gender_img/labels3.csv" )
-    # imgPath_annotPath("C:/Users/qhrud/data/obj_data", "img", "annot", "C:/Users/qhrud/data/obj_data/labels2.csv" )
+    imgPath_class("C:/Users/qhrud/data/face_gender_img/Validation", "C:/Users/qhrud/data/face_gender_img/labels3.csv" )
+    imgPath_annotPath("C:/Users/qhrud/data/obj_data", "img", "annot", "C:/Users/qhrud/data/obj_data/labels2.csv" )
