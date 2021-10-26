@@ -13,9 +13,9 @@ def filenames_list (root_dir, folder) :
 
 
 # 클래스 별로 다른 폴더에 데이터(파일)가 분류되어 있을 때, 
-# "파일의 경로 레이블" 의 형식으로 어노테이션 파일을 만들어준다. 
+# "<파일의 경로> <구분기호> <레이블>" 의 형식으로 어노테이션 파일을 만들어준다. 
 # 단, category_list의 클래스 이름과 폴더 이름은 동일해야 한다. 
-def imgPath_class (root_dir, out_csv_path, category_list=None) :
+def imgPath_class (root_dir, out_csv_path, category_list=None, separator="\t") :
     if category_list : pass
     else : 
         category_list = []
@@ -30,7 +30,7 @@ def imgPath_class (root_dir, out_csv_path, category_list=None) :
             filenames = filenames_list(root_dir, ca_name)
             total_data_size += len(filenames)
             for filename in filenames :
-                f.write(f'{root_dir}/{ca_name}/{filename} {label}\n')
+                f.write(f'{root_dir}/{ca_name}/{filename}{separator}{label}\n')
         print("total data size : ", total_data_size)
         
     pass # imgPath_class
@@ -40,14 +40,14 @@ def imgPath_class (root_dir, out_csv_path, category_list=None) :
 # root_dir = "C:/Users/qhrud/data/obj_data"
 # img_dir = "img"
 # annot_dir = "annot"
-def imgPath_annotPath (root_dir, img_dir, annot_dir, out_csv_path) :
+def imgPath_annotPath (root_dir:str, img_dir:str, annot_dir:str, out_csv_path:str, separator:str) :
     with open(f'{out_csv_path}', mode='w') as f :
         img_names = filenames_list(root_dir, img_dir)
 
         for img_name in img_names :
             annot_path = f"{root_dir}/{annot_dir}/{img_name[:-4]}.txt"
             assert os.path.isfile(annot_path), f"File is not exists :: {annot_path}"
-            f.write(f'{root_dir}/{img_dir}/{img_name} {root_dir}/{annot_dir}/{img_name[:-4]}.txt\n')
+            f.write(f'{root_dir}/{img_dir}/{img_name}{separator}{root_dir}/{annot_dir}/{img_name[:-4]}.txt\n')
 
         
 
