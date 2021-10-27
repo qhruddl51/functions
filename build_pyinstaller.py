@@ -1,6 +1,10 @@
 # pyinstaller로 exe파일 패키징하기 
-'''build.bat >> pyinstaller depList.py --onefile'''
+# parser 객체는 parse_args() 호출시 sys.argv에 접근해서 파싱해서 반환해준다. 
 
+
+# pip install pyinstaller
+# command 실행
+'''build.bat >> pyinstaller depList.py --onefile''' 
 
 
 def my_function_1(func_arg1, func_arg2) :
