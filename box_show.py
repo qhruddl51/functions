@@ -1,9 +1,18 @@
 import os
 import cv2
 import re
+import numpy as np
+
+# imread와 동일한 기능
+def hangulFilePathImageRead ( filePath ) : 
+    stream = open( filePath.encode("utf-8") , "rb") 
+    bytes = bytearray(stream.read()) 
+    numpyArray = np.asarray(bytes, dtype=np.uint8) 
+    return cv2.imdecode(numpyArray , cv2.IMREAD_UNCHANGED)
 
 
-def box_show (root_dir, img, annot) : 
+
+def box_show (root_dir, img, annot, show_num) : 
     """이미지에 box를 표시해주는 함수"""
     #    이미지 파일 이름과 box 좌표 파일 이름은 동일
     #    - root_dir : 이미지 폴더와 bbox 좌표 폴더가 있는 상위 디렉토리
@@ -12,9 +21,11 @@ def box_show (root_dir, img, annot) :
 
     images = os.listdir(f"{root_dir}/{img}")
     labels = os.listdir(f"{root_dir}/{annot}")
-
+    show = 0
     for i, l in zip(images, labels) : 
-        image = cv2.imread(f"{root_dir}/{img}/{i}")
+        show += 1
+        # imread
+        image = hangulFilePathImageRead(f"{root_dir}/{img}/{i}")
         height = image.shape[0]
         width = image.shape[1]
         
@@ -35,4 +46,11 @@ def box_show (root_dir, img, annot) :
         cv2.imshow('image', image)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
+        
+        if show == show_num : break
+        else : pass
+        
+        
+if __name__ == "__main__" :
+    box_show("C:/project/한국거래소/learning/train_data/augmented/positive", "img", "annot", show_num=50)
 
