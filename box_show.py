@@ -52,5 +52,5 @@ def box_show (root_dir, img, annot, show_num) :
         
         
 if __name__ == "__main__" :
-    box_show("C:/project/한국거래소/learning/train_data/augmented/positive", "img", "annot", show_num=50)
+    box_show("C:/project/한국거래소/learning/train_data/augmented/positive", "img", "annot", show_num=12)
 
