@@ -2,6 +2,7 @@ import os
 import cv2
 import re
 import numpy as np
+import random
 
 # imread와 동일한 기능
 def hangulFilePathImageRead ( filePath ) : 
@@ -18,24 +19,27 @@ def box_show (root_dir, img, annot, show_num) :
     #    - root_dir : 이미지 폴더와 bbox 좌표 폴더가 있는 상위 디렉토리
     #    - img : 이미지가 있는 디렉토리
     #    - annot : bbox 좌표가 있는 디렉토리
+    #    - show_num : 몇 개 이미지를 볼 것인지 지정
 
     images = os.listdir(f"{root_dir}/{img}")
     labels = os.listdir(f"{root_dir}/{annot}")
-    show = 0
-    for i, l in zip(images, labels) : 
-        show += 1
+    
+    # for i, l in zip(images, labels) : 
+    for _ in range(show_num) :
+        idx = random.randint(0, len(images))
+        print(idx)
+        
         # imread
-        image = hangulFilePathImageRead(f"{root_dir}/{img}/{i}")
+        image = hangulFilePathImageRead(f"{root_dir}/{img}/{images[idx]}")
         height = image.shape[0]
         width = image.shape[1]
         
-        with open(f"{root_dir}/{annot}/{l}", 'r') as f :
+        with open(f"{root_dir}/{annot}/{labels[idx]}", 'r') as f :
             for line in f.readlines() :
                 line = line.splitlines()[0]
                 label_bbox = re.split(" ", line)
                 label = label_bbox[0]
                 bbox = list(map(float, label_bbox[1:]))
-                
                 x0 = int(width*bbox[0]-width*bbox[2]/2)
                 y0 = int(height*bbox[1]-height*bbox[3]/2)
                 x1 = int(width*bbox[0]+width*bbox[2]/2)
@@ -46,11 +50,9 @@ def box_show (root_dir, img, annot, show_num) :
         cv2.imshow('image', image)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
-        
-        if show == show_num : break
-        else : pass
+    
         
         
 if __name__ == "__main__" :
-    box_show("C:/project/한국거래소/learning/train_data/augmented/positive", "img", "annot", show_num=12)
+    box_show("C:/project/bnk/obj_detect/learning/data_tr/aug_box", "img", "annot", show_num=12)
 
