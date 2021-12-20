@@ -7,9 +7,10 @@ import random
 
 # origin_folder_path 폴더에서 이미지 파일을 랜덤하게 percent만큼 뽑아서 
 # new_folder_path 폴더로 복사하는 함수 
+# idxs를 반환
 def file_copy_move(percent, origin_folder_path, new_folder_path) :
     filenames = os.listdir(f"{origin_folder_path}")
-    
+    filenames.sort()
     n = int(len(filenames) * percent / 100)
     idxs = random.sample(population=range(0, len(filenames)), k=n)
     
