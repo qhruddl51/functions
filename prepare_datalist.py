@@ -11,9 +11,9 @@ def prepare_datalist (root_dir:str , images_dir:str, labels_dir:str) :
     
     with open(f"{root_dir}/labels.csv", "w", encoding='utf8') as f : 
         for i, l in zip(images, labels) :
-            f.write(f"{root_dir}/{images_dir}s/{i} \t {root_dir}/{labels_dir}/{l} \n")
+            f.write(f"{root_dir}/{images_dir}/{i}\t{root_dir}/{labels_dir}/{l}\n")
     pass # prepare_datalist
 
 
 if __name__ == "__main__" :
-    prepare_datalist("C:\source\my_workspace\my_data\obj", "images", "labels")
+    prepare_datalist("C:/source/my_workspace/my_data/obj", "images", "labels")
