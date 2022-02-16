@@ -35,13 +35,14 @@ def box_show (root_dir, img, annot, show_num=None, shuffle=True) :
     for idx in range(show_num) :
         if shuffle : idx = random.randint(0, len(images))
         else : pass
-        print(idx)
+        # print(idx)
         
         # imread
         image = hangulFilePathImageRead(f"{root_dir}/{img}/{images[idx]}")
         height = image.shape[0]
         width = image.shape[1]
         label = images[idx].replace(".jpg", ".txt")
+        label = label.replace(".png", ".txt")
         if os.path.isfile(f"{root_dir}/{annot}/{label}") :
             with open(f"{root_dir}/{annot}/{label}", 'r') as f :
                 for line in f.readlines() :
@@ -65,12 +66,14 @@ def box_show (root_dir, img, annot, show_num=None, shuffle=True) :
             cv2.imshow('image', image)
             cv2.waitKey(0)
             cv2.destroyAllWindows()
-        else : pass
+        pass # for 
     
+    print("Complete!")
+    pass # box_show
         
         
 if __name__ == "__main__" :
-    # box_show("image_label", "image", "label", shuffle=False)
-    box_show("C:/project/dgb/obj_detector/data/augmented", "images", "labels", show_num=50, shuffle=True)
-    print("Complete!")
+    box_show("image_label", "image", "label", shuffle=False)
+    # box_show("C:/project/dgb/obj_detector/data/augmented", "images", "labels", show_num=50, shuffle=True)
+    
 
