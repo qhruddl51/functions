@@ -27,13 +27,13 @@ def box_show (root_dir, img, annot, show_num=None, shuffle=True) :
     labels.sort()
     
     # show_num을 지정하지 않으면, 이미지 전체를 모두 본다. 
-    if not show_num : show_num = len(images) 
+    if show_num is None : show_num = len(images) 
     else : pass
     
     font = cv2.FONT_HERSHEY_DUPLEX
     # for i, l in zip(images, labels) : 
     for idx in range(show_num) :
-        if shuffle : idx = random.randint(0, 50)
+        if shuffle : idx = random.randint(0, len(images))
         else : pass
         print(idx)
         
@@ -48,15 +48,19 @@ def box_show (root_dir, img, annot, show_num=None, shuffle=True) :
                     line = line.splitlines()[0]
                     label_bbox = re.split(" ", line)
                     label = label_bbox[0]
-                    
                     bbox = list(map(float, label_bbox[1:]))
                     x0 = int(width*bbox[0]-width*bbox[2]/2)
                     y0 = int(height*bbox[1]-height*bbox[3]/2)
                     x1 = int(width*bbox[0]+width*bbox[2]/2)
                     y1 = int(height*bbox[1]+height*bbox[3]/2)
                     green = (0, 255, 0)
-                    cv2.putText(img=image, text=label, org=(int(width*bbox[0])-8, y0-10), fontFace=font, fontScale=1, color=green, thickness=2)
-                    cv2.rectangle(img = image, pt1 = (x0, y0), pt2=(x1, y1), color=green, thickness=3)
+                    red = (0, 0, 255)
+                    if label == "0" :
+                        cv2.putText(img=image, text=label, org=(int(width*bbox[0])-8, y0-10), fontFace=font, fontScale=1, color=green, thickness=2)
+                        cv2.rectangle(img = image, pt1 = (x0, y0), pt2=(x1, y1), color=green, thickness=3)
+                    if label == "1" : 
+                        cv2.putText(img=image, text=label, org=(int(width*bbox[0])-8, y0-10), fontFace=font, fontScale=1, color=red, thickness=2)
+                        cv2.rectangle(img = image, pt1 = (x0, y0), pt2=(x1, y1), color=red, thickness=3)
 
             cv2.imshow('image', image)
             cv2.waitKey(0)
@@ -66,5 +70,7 @@ def box_show (root_dir, img, annot, show_num=None, shuffle=True) :
         
         
 if __name__ == "__main__" :
-    box_show("C:/project/bnk/obj_detect/learning/data_tr/train1_add/box", "img", "annot_tot", show_num=10, shuffle=False)
+    # box_show("image_label", "image", "label", shuffle=False)
+    box_show("C:/project/dgb/obj_detector/data/augmented", "images", "labels", show_num=50, shuffle=True)
+    print("Complete!")
 
