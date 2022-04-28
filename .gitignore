@@ -3,3 +3,7 @@ temp
 log
 build
 dist
+*.ico
+*.png
+*.spec
+*.exe
