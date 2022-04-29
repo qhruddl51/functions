@@ -31,7 +31,7 @@ def make_emptylabel (img_dir) :
     
     for f in target : 
         new_f = f"{os.path.splitext(f)[0]}.txt" # 생성할 빈 레이블 텍스트 파일의 이름
-        shutil.copy2(f"{img_dir}/{f}", f"{save_label_dir}/{new_f}")
+        open(f"{save_label_dir}/{new_f}", encoding='utf8', mode='w')
     print()
     print(f"{len(target)} label files are generated! ")
     
@@ -57,10 +57,6 @@ def createFolder(directory):
 
     
 if __name__ == "__main__" :
-    path = os.path.join(os.path.dirname(__file__), './icon.ico')
-    print(path)
-    if os.path.isfile(path):
-        self.root.iconbitmap(path)
         
     args = docopt(__doc__, version='DEMO 1.0')
     img_dir = args['<path>']
