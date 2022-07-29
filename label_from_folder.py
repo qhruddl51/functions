@@ -49,7 +49,6 @@ def imgPath_annotPath (root_dir:str, img_dir:str, annot_dir:str, out_csv_path:st
             assert os.path.isfile(annot_path), f"File is not exists :: {annot_path}"
             f.write(f'{root_dir}/{img_dir}/{img_name}{separator}{root_dir}/{annot_dir}/{img_name[:-4]}.txt\n')
 
-        
 
 
 
