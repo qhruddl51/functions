@@ -4,13 +4,21 @@ import re
 import numpy as np
 import random
 
-# imread와 동일한 기능
-def hangulFilePathImageRead ( filePath ) : 
-    stream = open( filePath.encode("utf-8") , "rb") 
-    bytes = bytearray(stream.read()) 
-    numpyArray = np.asarray(bytes, dtype=np.uint8) 
-    return cv2.imdecode(numpyArray , cv2.IMREAD_UNCHANGED)
 
+# imread와 동일한 기능
+def hangulFilePathImageRead ( filePath ) :
+    """Output Image : RGB 3 Channel. (W, H, C)"""
+    try :
+        stream = open(filePath.encode("utf-8") , "rb") 
+        bytes = bytearray(stream.read()) 
+        numpyArray = np.asarray(bytes, dtype=np.uint8) 
+        result = cv2.imdecode(numpyArray , cv2.IMREAD_UNCHANGED) # BGR
+        if result.shape[-1] == 3 : result = cv2.cvtColor(result, cv2.COLOR_BGR2RGB)
+        elif result.shape[-1] == 4 : result = cv2.cvtColor(result, cv2.COLOR_BGRA2RGB)
+        return result
+    except FileNotFoundError as e :
+        utils_logger.exception(f"FileNotFoundError: [Errno 2] No such file or directory: {filePath}")
+        sys.exit(0)
 
 
 def box_show (root_dir, img, annot, classes_txt="classes.txt", show_num=None, shuffle=True) : 
